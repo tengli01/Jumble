@@ -1,3 +1,6 @@
+var level = 0;
+var answer;
+
 function controlClicked()
 {
 	var e = document.getElementById("game_div");
@@ -16,5 +19,20 @@ function controlClicked()
 
 function instructionsClicked()
 {
-	alert("Instructions go here")
+	alert("Instructions go here");
+}
+
+function handleGuess(text)
+{
+	var e = document.getElementById("answer_div");
+	if(text==answer)
+	{
+		e.innerHTML = "Correct";
+		level = level + 1;
+		document.getElementById("level_div").innerHTML = "Level = "+level+"<br>";
+	}
+	else
+	{
+		e.innerHTML = "Incorrect";
+	}
 }
