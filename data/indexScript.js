@@ -24,8 +24,9 @@ function instructionsClicked()
 
 function handleGuess(text)
 {
+	var md5Text = CryptoJS.MD5(text);
 	var e = document.getElementById("answer_div");
-	if(text==answer)
+	if(md5Text==answer)
 	{
 		e.innerHTML = "Correct";
 		level = level + 1;

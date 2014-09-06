@@ -3,6 +3,7 @@
 	<head>
   		<title>Jumble</title>
 		<script src = "data/indexScript.js"></script>
+		<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
  	</head>
  	<body>
 		<h1>JUMBLE!</h1>
@@ -12,13 +13,7 @@
 		</form>
 		<div style="display:none" align="center" id="game_div">
 			<?php
-	        	$contents = file("data/dict");
-		        $line = $contents[rand(0,count($contents)-1)];
-			$line = trim($line); // Remove whitespace
-			echo "<script>answer='$line';</script>";
-			echo "Your word is: $line<br>";
-			$scrambled_line = str_shuffle($line);
-			echo "Your jumbled word is: $scrambled_line<br>";
+	        	require("data/getWord.php");
 			?>
 			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
 			<div align="center" id="level_div">
