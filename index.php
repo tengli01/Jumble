@@ -12,14 +12,17 @@
 			<input type="button" id="instructionsButton" value="Instructions" onclick="instructionsClicked()">
 		</form>
 		<div style="display:none" align="center" id="game_div">
-			<?php
-	        	require("data/getWord.php");
-			?>
-			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
-			<div align="center" id="level_div">
-				Level = 0<br>
+			<div id="word_div">
+				<?php
+					require(__DIR__."/data/getWord.php");
+				?>
 			</div>
+			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
+			<div id="level_div">
+				Level = 1<br>
+				Number of Guesses = 0<br>
+			</div>
+			<div align="center" id="result_div"/>
 		</div>
-		<div align="center" id="answer_div"/>
  	</body>
 </html>
