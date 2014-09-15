@@ -8,25 +8,19 @@ function controlClicked()
 	var btn = document.getElementById("controlButton");
 	var level_div = document.getElementById("level_div");
 	
-	if(e.style.display == 'none') // User clicked "Start"
+	if(btn.value == 'Start') // User clicked "Start"
 	{
 		e.style.display = 'block';
-		btn.value = 'Quit';
+		btn.value = 'Reset';
 		reloadAnswer();
 	}
-	else // User clicked "Quit"
+	else // User clicked "Reset"
 	{
-		e.style.display = 'none';
-		btn.value = 'Start';
 		level = 1;
 		num_guesses = 0;
+		requestNewWord();
 		setScore();
 	}	
-}
-
-function instructionsClicked()
-{
-	alert("Instructions go here");
 }
 
 function setScore()
@@ -40,6 +34,21 @@ function reloadAnswer()
 	answer = answer_div.innerHTML;
 }
 
+function requestNewWord()
+{
+	var new_word_div = document.getElementById("word_div");
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function(){
+		if(request.readyState == 4)
+		{
+			new_word_div.innerHTML = request.responseText;
+			reloadAnswer();
+		}
+	}
+	request.open("GET","data/getWord.php",true);
+	request.send();
+}
+
 function handleGuess(text)
 {
 	var md5Text = CryptoJS.MD5(text);
@@ -50,18 +59,7 @@ function handleGuess(text)
 		level = level + 1;
 		num_guesses = num_guesses + 1;
 		setScore();
-		
-		var new_word_div = document.getElementById("word_div");
-		var request = new XMLHttpRequest();
-		request.onreadystatechange = function(){
-			if(request.readyState == 4)
-			{
-				new_word_div.innerHTML = request.responseText;
-				reloadAnswer();
-			}
-		}
-		request.open("GET","data/getWord.php",true);
-		request.send();
+		requestNewWord();
 	}
 	else
 	{
@@ -69,4 +67,9 @@ function handleGuess(text)
 		num_guesses = num_guesses + 1;
 		setScore();
 	}
+}
+
+function instructionsClicked()
+{
+	alert("Instructions go here");
 }
