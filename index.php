@@ -2,6 +2,7 @@
 <html>
 	<head>
   		<title>Jumble</title>
+		<script src = "data/utilities.js"></script>
 		<script src = "data/indexScript.js"></script>
 		<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
  	</head>
@@ -19,8 +20,6 @@
 			</div>
 			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
 			<div id="level_div">
-				Level = 1<br>
-				Number of Guesses = 0<br>
 			</div>
 			<div align="center" id="result_div"/>
 		</div>

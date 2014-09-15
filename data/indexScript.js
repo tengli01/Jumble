@@ -1,5 +1,6 @@
 var level = 1;
 var num_guesses = 0;
+var score = 0;
 var answer;
 
 function controlClicked()
@@ -12,6 +13,7 @@ function controlClicked()
 	{
 		e.style.display = 'block';
 		btn.value = 'Reset';
+		setScore();
 		reloadAnswer();
 	}
 	else // User clicked "Reset"
@@ -23,9 +25,14 @@ function controlClicked()
 	}	
 }
 
+function updateGameCookies(numDaysToSave)
+{
+	//setCookie(numDaysToSave,);
+}
+
 function setScore()
 {
-	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Number of Guesses = "+num_guesses;
+	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Score = "+score+"<br>Number of Guesses = "+num_guesses;
 }
 
 function reloadAnswer()
@@ -56,10 +63,12 @@ function handleGuess(text)
 	if(md5Text==answer)
 	{
 		e.innerHTML = "Correct";
+		score = score + (level * 10);
 		level = level + 1;
 		num_guesses = num_guesses + 1;
 		setScore();
 		requestNewWord();
+		updateGameCookies();
 	}
 	else
 	{
