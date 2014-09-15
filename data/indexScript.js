@@ -35,7 +35,9 @@ function updateGameCookies(numDaysToSave)
 	setCookie(numDaysToSave,"Score",score);
 	setCookie(numDaysToSave,"Level",level);
 	setCookie(numDaysToSave,"Num_Guesses",num_guesses);
-	setCookie(numDaysToSave,"Scrambled_Word",answer_div.innerHTML);
+	setCookie(numDaysToSave,"Scrambled_Word",document.getElementById("answer_div").innerHTML);
+	setCookie(numDaysToSave,"Cheater",document.getElementById("cheater").innerHTML);
+	setCookie(numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
 }
 
 // This function sets the "level_div" to the player's current score
