@@ -13,14 +13,9 @@
 			<input type="button" id="instructionsButton" value="Instructions" onclick="instructionsClicked()">
 		</form>
 		<div style="display:none" align="center" id="game_div">
-			<div id="word_div">
-				<?php
-					require(__DIR__."/data/getWord.php");
-				?>
-			</div>
+			<div id="word_div"></div>
 			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
-			<div id="level_div">
-			</div>
+			<div id="level_div"></div>
 			<div align="center" id="result_div"/>
 		</div>
  	</body>

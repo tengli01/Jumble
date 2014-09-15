@@ -14,6 +14,7 @@ function controlClicked()
 		e.style.display = 'block';
 		btn.value = 'Reset';
 		setScore();
+		requestNewWord();
 		reloadAnswer();
 	}
 	else // User clicked "Reset"
@@ -27,7 +28,10 @@ function controlClicked()
 
 function updateGameCookies(numDaysToSave)
 {
-	//setCookie(numDaysToSave,);
+	setCookie(numDaysToSave,"Score",score);
+	setCookie(numDaysToSave,"Level",level);
+	setCookie(numDaysToSave,"Num_Guesses",num_guesses);
+	setCookie(numDaysToSave,"Scrambled_Word",answer_div.innerHTML);
 }
 
 function setScore()
