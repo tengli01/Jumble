@@ -3,7 +3,7 @@
 function setCookie(numDays, cookieName, cookieValue)
 {
 	var d = new Date();
-	d.setTime(g.getTime() + (numDays*24*60*60*1000));
+	d.setTime(d.getTime() + (numDays*24*60*60*1000));
 	var expires = "expires="+d.toUTCString();
 	document.cookie = cookieName+"="+cookieValue+"; "+expires;
 }
