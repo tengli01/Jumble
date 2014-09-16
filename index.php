@@ -13,7 +13,11 @@
 			<input type="button" id="instructionsButton" value="Instructions" onclick="instructionsClicked()">
 		</form>
 		<div style="display:none" align="center" id="game_div">
-			<div id="word_div"></div>
+			<div id="word_div">
+				<div style='display:none' id='answer_div'></div>
+				Your word is: <div id='cheater'></div><br>
+				Your jumbled word is: <div id='real_word'></div><br>
+			</div>
 			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
 			<div id="level_div"></div>
 			<div align="center" id="result_div"/>

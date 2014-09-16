@@ -21,3 +21,17 @@ function getCookie(cookieName)
     }
     return "";
 }
+
+// Returns true if 'cookieName' is defined, false otherwise
+function doesCookieExist(cookieName)
+{
+	var cval = getCookie(cookieName);
+	if(cval == "")
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}

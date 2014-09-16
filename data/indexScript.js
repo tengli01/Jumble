@@ -2,6 +2,7 @@ var level = 1;
 var num_guesses = 0;
 var score = 0;
 var answer;
+var numDaysToSave = 7;
 
 //This function is called when the user clicks "Start"/"Reset"
 //On start: displays the game div and requests a new word
@@ -16,28 +17,48 @@ function controlClicked()
 	{
 		e.style.display = 'block';
 		btn.value = 'Reset';
-		setScore();
-		requestNewWord();
+		if(doesCookieExist("Score"))
+		{
+			getGameCookies();
+			setScore();
+			reloadAnswer();
+		}
+		else
+		{
+			requestNewWord();
+			setScore();
+		}
 	}
 	else // User clicked "Reset"
 	{
 		level = 1;
 		num_guesses = 0;
-		requestNewWord();
+		score = 0;
 		setScore();
-		updateGameCookies();
+		requestNewWord();
 	}	
 }
 
-// This function saves off data needed to make game sessions persistant
-function updateGameCookies(numDaysToSave)
+// This function loads game values from a saved session
+function getGameCookies()
 {
-	setCookie(numDaysToSave,"Score",score);
-	setCookie(numDaysToSave,"Level",level);
-	setCookie(numDaysToSave,"Num_Guesses",num_guesses);
-	setCookie(numDaysToSave,"Scrambled_Word",document.getElementById("answer_div").innerHTML);
-	setCookie(numDaysToSave,"Cheater",document.getElementById("cheater").innerHTML);
-	setCookie(numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
+	score = getCookie("Score");
+	level = getCookie("Level");
+	num_guesses = getCookie("Num_Guesses");
+	document.getElementById("answer_div").innerHTML = getCookie("Scrambled_Word");
+	document.getElementById("cheater").innerHTML = getCookie("Cheater");
+	document.getElementById("real_word").innerHTML = getCookie("Real_Word");
+}
+
+// This function saves off data needed to make game sessions persistant
+function updateGameCookies(_numDaysToSave)
+{
+	setCookie(_numDaysToSave,"Score",score);
+	setCookie(_numDaysToSave,"Level",level);
+	setCookie(_numDaysToSave,"Num_Guesses",num_guesses);
+	setCookie(_numDaysToSave,"Scrambled_Word",document.getElementById("answer_div").innerHTML);
+	setCookie(_numDaysToSave,"Cheater",document.getElementById("cheater").innerHTML);
+	setCookie(_numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
 }
 
 // This function sets the "level_div" to the player's current score
@@ -63,6 +84,7 @@ function requestNewWord()
 		{
 			new_word_div.innerHTML = request.responseText;
 			reloadAnswer();
+			updateGameCookies(numDaysToSave);
 		}
 	}
 	request.open("GET","data/getWord.php",true);
@@ -85,14 +107,13 @@ function handleGuess(text)
 		num_guesses = num_guesses + 1;
 		setScore();
 		requestNewWord();
-		updateGameCookies();
 	}
 	else
 	{
 		e.innerHTML = "Incorrect";
 		num_guesses = num_guesses + 1;
 		setScore();
-		updateGameCookies();
+		updateGameCookies(numDaysToSave);
 	}
 }
 
