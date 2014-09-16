@@ -42,9 +42,9 @@ function controlClicked()
 // This function loads game values from a saved session
 function getGameCookies()
 {
-	score = getCookie("Score");
-	level = getCookie("Level");
-	num_guesses = getCookie("Num_Guesses");
+	score = parseInt(getCookie("Score"));
+	level = parseInt(getCookie("Level"));
+	num_guesses = parseInt(getCookie("Num_Guesses"));
 	document.getElementById("answer_div").innerHTML = getCookie("Scrambled_Word");
 	document.getElementById("cheater").innerHTML = getCookie("Cheater");
 	document.getElementById("real_word").innerHTML = getCookie("Real_Word");
