@@ -120,5 +120,9 @@ function handleGuess(text)
 // This function is called when 'Instructions' is clicked
 function instructionsClicked()
 {
-	alert("Instructions go here");
+	alert("==How To Play==\n"
+		 +"1) Press start to begin\n"
+		 +"2) You are presented with a scrambled word, try to figure out what word it represents and type it into the submission box\n"
+		 +"3) If you are correct, you will get a new word. If not, try again!\n"
+		 +"Your game is automatically saved, you can close and reopen to return to where you were.");
 }
