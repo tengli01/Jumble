@@ -2,6 +2,7 @@
 <html>
 	<head>
   		<title>Jumble</title>
+		<link type="text/css" rel="stylesheet" href="data/index_stylesheet.css"/>
 		<script src = "data/utilities.js"></script>
 		<script src = "data/indexScript.js"></script>
 		<script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
