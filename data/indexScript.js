@@ -45,8 +45,7 @@ function getGameCookies()
 	score = parseInt(getCookie("Score"));
 	level = parseInt(getCookie("Level"));
 	num_guesses = parseInt(getCookie("Num_Guesses"));
-	document.getElementById("answer_div").innerHTML = getCookie("Scrambled_Word");
-	document.getElementById("cheater").innerHTML = getCookie("Cheater");
+	document.getElementById("scrambled_word").innerHTML = getCookie("Scrambled_Word");
 	document.getElementById("real_word").innerHTML = getCookie("Real_Word");
 }
 
@@ -56,8 +55,7 @@ function updateGameCookies(_numDaysToSave)
 	setCookie(_numDaysToSave,"Score",score);
 	setCookie(_numDaysToSave,"Level",level);
 	setCookie(_numDaysToSave,"Num_Guesses",num_guesses);
-	setCookie(_numDaysToSave,"Scrambled_Word",document.getElementById("answer_div").innerHTML);
-	setCookie(_numDaysToSave,"Cheater",document.getElementById("cheater").innerHTML);
+	setCookie(_numDaysToSave,"Scrambled_Word",document.getElementById("scrambled_word").innerHTML);
 	setCookie(_numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
 }
 
@@ -70,7 +68,7 @@ function setScore()
 // This function gets the current correct answer (a hashed MD5) from the data returned by the server
 function reloadAnswer()
 {
-	var answer_div = document.getElementById("answer_div");
+	var answer_div = document.getElementById("real_word");
 	answer = answer_div.innerHTML;
 }
 
@@ -97,9 +95,8 @@ function requestNewWord()
 // On incorrect: increment num_guesses, update level_div, update cookies
 function handleGuess(text)
 {
-	var md5Text = CryptoJS.MD5(text);
 	var e = document.getElementById("result_div");
-	if(md5Text==answer)
+	if(text==answer)
 	{
 		e.innerHTML = "Correct";
 		score = score + (level * 10);
