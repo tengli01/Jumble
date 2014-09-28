@@ -6,8 +6,8 @@
 		<script src = "data/utilities.js"></script>
 		<script src = "data/indexScript.js"></script>
  	</head>
- 	<body>
-		<h1>JUMBLE!</h1>
+ 	<body onload="windowLoaded();">
+		<h1 id="game_title">JUMBLE!</h1>
 		<div id="control_div">
 			<form>
 				<input type="button" id="controlButton" value="Start" onclick="controlClicked()">

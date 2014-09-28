@@ -123,3 +123,16 @@ function instructionsClicked()
 		 +"3) If you are correct, you will get a new word. If not, try again!\n"
 		 +"Your game is automatically saved, you can close and reopen to return to where you were.");
 }
+
+//This function takes scrambles the title string
+function jumbleContinuously()
+{
+	var e = document.getElementById("game_title").innerHTML;
+	document.getElementById("game_title").innerHTML = scrambleWord(e);
+}
+
+// This is a helper function that is called as soon as the page is loaded
+function windowLoaded()
+{
+	setInterval(jumbleContinuously,1000);
+}
