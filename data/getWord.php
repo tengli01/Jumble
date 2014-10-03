@@ -4,9 +4,37 @@
 // The scrambled word is stored in 'scrambled_word'
 
 $contents = file(__DIR__."/dict");
-$line = $contents[rand(0,count($contents)-1)];
-$line = trim($line); // Remove whitespace
-echo "Your word is: <div id='real_word'>$line</div><br>";
-$scrambled_line = str_shuffle($line);
-echo "Your jumbled word is: <div id='scrambled_word'>$scrambled_line</div><br>";
+$special_contents = file(__DIR__."/special_dict");
+$special_line = trim($special_contents[rand(0,count($special_contents)-1)]);
+$special_line_array = str_split($special_line);
+
+echo($special_line . ",");
+
+//Parse through each character in the special word, getting all words that match a character
+//For each character in the $special_line
+for($count=0; $count<count($special_line_array); $count++)
+{
+	$possible_words = array();
+	$possible_letter_locations = array();
+	//For each word in the original dictionary
+	for($idx=0; $idx<count($contents); $idx++)
+	{
+		$position = strpos($contents[$idx],$special_line_array[$count]);
+		//If a particular word contains the letter from the $special_line
+		if($position != False)
+		{
+			array_push($possible_words,trim($contents[$idx]));
+			array_push($possible_letter_locations,$position);
+		}
+	}
+	$chosen_index = rand(0,count($possible_words)-1);
+	$chosen_word = $possible_words[$chosen_index];
+	$chosen_letter_locations = $possible_letter_locations[$chosen_index];
+	echo($chosen_letter_locations.",".$chosen_word);
+	
+	if($count != count($special_line_array)-1)
+	{
+		echo ",";
+	}
+}
 ?>

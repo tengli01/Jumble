@@ -15,6 +15,7 @@
 			</form>
 		</div>
 		<div id="game_div">
+			<div id="data_div"></div>
 			<div id="word_div">
 				<div id='answer_div'></div>
 				Your word is: <div id='real_word'></div><br>

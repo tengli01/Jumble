@@ -21,6 +21,16 @@ h1
 	border-bottom-right-radius: 10px;
 }
 
+#data_div
+{
+	display:none;
+}
+
+#game_div
+{
+	display:none
+}
+
 #answer_div
 {
 	display:none;
