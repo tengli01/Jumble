@@ -43,6 +43,7 @@ function controlClicked()
 		level = 1;
 		num_guesses = 0;
 		score = 0;
+		document.getElementById("submitGuess").disabled = false;
 		setScore();
 		requestNewWordList();
 	}	
@@ -142,7 +143,7 @@ function handleGuess(text)
 		{
 			// The player has guessed the special word, game over
 			e.innerHTML = "Game Over";
-			score = score * 100;
+			score = score * 10;
 			num_guesses = num_guesses + 1;
 			setScore();
 			document.getElementById("submitGuess").disabled = true;
