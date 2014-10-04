@@ -21,7 +21,9 @@
 				Your word is: <div id='real_word'></div><br>
 				Your jumbled word is: <div id='scrambled_word'></div><br>
 			</div>
-			Guess:<input type="text" id="guessInput"><input type="button" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
+			Guess:
+				<input type="text" id="guessInput"onkeydown="if (event.keyCode == 13) document.getElementById('submitGuess').click()">
+				<input type="Submit" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
 			<div id="level_div"></div>
 			<div id="result_div"/>
 		</div>

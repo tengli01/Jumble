@@ -144,7 +144,8 @@ function handleGuess(text)
 			e.innerHTML = "Game Over";
 			score = score * 100;
 			num_guesses = num_guesses + 1;
-			setScore();			
+			setScore();
+			document.getElementById("submitGuess").disabled = true;
 		}
 		else // The player has guessed one of the levels, get a new word
 		{
