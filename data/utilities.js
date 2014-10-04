@@ -72,3 +72,9 @@ function windowLoaded()
 {
 	setInterval(jumbleContinuously,1000);
 }
+
+// This function sets the "level_div" to the player's current score
+function setScore()
+{
+	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Score = "+score+"<br>Number of Guesses = "+num_guesses;
+}

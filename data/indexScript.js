@@ -1,7 +1,7 @@
 var level = 1;
 var num_guesses = 0;
 var score = 0;
-var answerIndex;
+var answerIndex = 0;
 var answers = new Array();
 var letters = new Array();
 var currentAnswer;
@@ -33,6 +33,7 @@ function controlClicked()
 			level = 1;
 			num_guesses = 0;
 			score = 0;
+			answerIndex = 0;
 			requestNewWordList();
 			setScore();
 		}
@@ -67,12 +68,6 @@ function updateGameCookies(_numDaysToSave)
 	//setCookie(_numDaysToSave,"AnswerIndex",answerIndex);
 	//setCookie(_numDaysToSave,"Scrambled_Word",document.getElementById("scrambled_word").innerHTML);
 	//setCookie(_numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
-}
-
-// This function sets the "level_div" to the player's current score
-function setScore()
-{
-	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Score = "+score+"<br>Number of Guesses = "+num_guesses;
 }
 
 // This function gets the comma-separated list of words, with the special word first and every other word prefixed by what letter is in the special word
@@ -113,12 +108,25 @@ function requestNewWordList()
 // This function gets a new word and special letter from the list of words and special letters received from the server
 function requestNewWord()
 {
-	currentAnswer = answers[answerIndex];
-	currentLetter = letters[answerIndex];
-	var scrambledWord = scrambleWord(currentAnswer);
-	
-	document.getElementById("real_word").innerHTML = currentAnswer;
-	document.getElementById("scrambled_word").innerHTML = scrambledWord;
+	if(answerIndex < answers.length) // Player needs one of the non-special words
+	{
+		currentAnswer = answers[answerIndex];
+		currentLetter = letters[answerIndex];
+		var scrambledWord = scrambleWord(currentAnswer);
+		
+		document.getElementById("real_word").innerHTML = currentAnswer;
+		document.getElementById("scrambled_word").innerHTML = scrambledWord;
+	}
+	else // The player has guessed all the correct words, time for the special word
+	{
+		currentAnswer = specialWord;
+		var scrambledWord = scrambleWord(currentAnswer);
+		
+		document.getElementById("real_word").innerHTML = currentAnswer;
+		document.getElementById("scrambled_word").innerHTML = scrambledWord;
+		level = "Final Word";
+		setScore();
+	}
 }
 
 // This function handles determining if a player's guess (passed in through the 'text' param) is correct
@@ -130,13 +138,24 @@ function handleGuess(text)
 	var e = document.getElementById("result_div");
 	if(text==currentAnswer)
 	{
-		e.innerHTML = "Correct";
-		score = score + (level * 10);
-		level = level + 1;
-		num_guesses = num_guesses + 1;
-		answerIndex = answerIndex + 1;
-		setScore();
-		requestNewWord();
+		if(currentAnswer==specialWord)
+		{
+			// The player has guessed the special word, game over
+			e.innerHTML = "Game Over";
+			score = score * 100;
+			num_guesses = num_guesses + 1;
+			setScore();			
+		}
+		else // The player has guessed one of the levels, get a new word
+		{
+			e.innerHTML = "Correct";
+			score = score + (level * 10);
+			level = level + 1;
+			num_guesses = num_guesses + 1;
+			answerIndex = answerIndex + 1;
+			setScore();
+			requestNewWord();
+		}
 	}
 	else
 	{
