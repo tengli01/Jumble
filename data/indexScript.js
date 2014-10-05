@@ -147,6 +147,7 @@ function handleGuess(text)
 			num_guesses = num_guesses + 1;
 			setScore();
 			document.getElementById("submitGuess").disabled = true;
+			document.getElementsByClassName("overlay").display = 'block';
 		}
 		else // The player has guessed one of the levels, get a new word
 		{

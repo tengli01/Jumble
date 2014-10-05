@@ -7,6 +7,7 @@
 		<script src = "data/indexScript.js"></script>
  	</head>
  	<body onload="windowLoaded();">
+		<div class="overlay"></div>
 		<h1 id="game_title">JUMBLE!</h1>
 		<div id="control_div">
 			<form>
@@ -24,8 +25,8 @@
 			Guess:
 				<input type="text" id="guessInput"onkeydown="if (event.keyCode == 13) document.getElementById('submitGuess').click()">
 				<input type="Submit" value="Submit" id="submitGuess" onclick="handleGuess(guessInput.value)">
-			<div id="level_div"/>
-			<div id="result_div"/>
+			<div id="level_div"></div>
+			<div id="result_div"></div>
 		</div>
  	</body>
 </html>
