@@ -131,7 +131,7 @@ function requestNewWord()
 }
 
 // This function handles determining if a player's guess (passed in through the 'text' param) is correct
-// It hashes the param and compares it to 'answer' (should be the value of 'answer_div')
+// It hashes the param and compares it to 'answer'
 // On correct: increment score, level, num_guesses, set the level_div to new value, request a new word, update cookies
 // On incorrect: increment num_guesses, update level_div, update cookies
 function handleGuess(text)

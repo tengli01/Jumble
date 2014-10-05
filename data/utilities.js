@@ -78,3 +78,10 @@ function setScore()
 {
 	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Score = "+score+"<br>Number of Guesses = "+num_guesses;
 }
+
+//This function draws a word in the specified canvas with boxes around each letter.
+//If letterIndex is specified, then it will draw a circle around that letter
+function drawWord(word,canvas,letterIndex)
+{
+	
+}
