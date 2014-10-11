@@ -83,5 +83,35 @@ function setScore()
 //If letterIndex is specified, then it will draw a circle around that letter
 function drawWord(word,canvas,letterIndex)
 {
+	//Set up canvas
+	var context = canvas.getContext("2d");
+	context.clearRect(0,0,canvas.width,canvas.height);
+	var characterOffset = canvas.width / word.length;
+	context.font = "bold 50px Courier New";
 	
+	//Handle actual drawing
+	for(var idx = 0; idx < word.length; idx++)
+	{
+		/*
+		//Draw a box around each character
+		var x = idx * characterOffset;
+		var y = 0;
+		var width = characterOffset;
+		var height = canvas.height;
+		context.rect(x,y,width,height);
+		context.stroke();
+		*/
+		
+		letter = word.charAt(idx);
+		if(idx == letterIndex) // Draw a circle around the special index
+		{
+			var x = idx * characterOffset+15;
+			context.beginPath();
+			context.arc(x,35,25,0,2*Math.PI,false);
+			context.lineWidth = 3;
+			context.strokeStyle = '#003300';
+			context.stroke();
+		}
+		context.fillText(letter,idx * characterOffset,50);
+	}
 }

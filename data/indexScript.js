@@ -7,6 +7,7 @@ var letters = new Array();
 var currentAnswer;
 var currentLetter;
 var specialWord;
+var finalWord;
 var numDaysToSave = 7;
 
 //This function is called when the user clicks "Start"/"Reset"
@@ -71,19 +72,21 @@ function updateGameCookies(_numDaysToSave)
 	//setCookie(_numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
 }
 
-// This function gets the comma-separated list of words, with the special word first and every other word prefixed by what letter is in the special word
+// This function splits the comma-separated list of words from the server into an array of words, with the special word first 
+// and every other word prefixed by the index of the letter that is in the special word
 function reloadAnswer()
 {
 	var answer_div = document.getElementById("data_div");
 	answerList = answer_div.innerHTML.split(",");
 	specialWord = answerList[0];
 	answerIndex = 0;
+	finalWord = "";
 	answers = new Array();
 	letters = new Array();
 	
 	for( var i = 1; i < answerList.length; i += 2)
 	{
-		letters.push(answerList[i]);
+		letters.push(parseInt(answerList[i]));
 		answers.push(answerList[i+1]);
 	}
 }
@@ -116,15 +119,14 @@ function requestNewWord()
 		var scrambledWord = scrambleWord(currentAnswer);
 		
 		document.getElementById("real_word").innerHTML = currentAnswer;
-		document.getElementById("scrambled_word").innerHTML = scrambledWord;
+		var canvas = document.getElementById("scrambled_word_canvas");
+		drawWord(scrambledWord,canvas,currentLetter);
 	}
 	else // The player has guessed all the correct words, time for the special word
 	{
 		currentAnswer = specialWord;
-		var scrambledWord = scrambleWord(currentAnswer);
 		
 		document.getElementById("real_word").innerHTML = currentAnswer;
-		document.getElementById("scrambled_word").innerHTML = scrambledWord;
 		level = "Final Word";
 		setScore();
 	}
@@ -154,6 +156,10 @@ function handleGuess(text)
 			e.innerHTML = "Correct";
 			score = score + (level * 10);
 			level = level + 1;
+			finalWord += currentAnswer.charAt(currentLetter);
+			var canvas = document.getElementById("final_word_canvas");
+			drawWord(finalWord,canvas,-1);
+			
 			num_guesses = num_guesses + 1;
 			answerIndex = answerIndex + 1;
 			setScore();

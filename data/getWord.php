@@ -32,6 +32,7 @@ for($count=0; $count<count($special_line_array); $count++)
 	$chosen_letter_locations = $possible_letter_locations[$chosen_index];
 	echo($chosen_letter_locations.",".$chosen_word);
 	
+	//The last word in the array should not have a comma after it
 	if($count != count($special_line_array)-1)
 	{
 		echo ",";
