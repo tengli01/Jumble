@@ -92,16 +92,6 @@ function drawWord(word,canvas,letterIndex)
 	//Handle actual drawing
 	for(var idx = 0; idx < word.length; idx++)
 	{
-		/*
-		//Draw a box around each character
-		var x = idx * characterOffset;
-		var y = 0;
-		var width = characterOffset;
-		var height = canvas.height;
-		context.rect(x,y,width,height);
-		context.stroke();
-		*/
-		
 		letter = word.charAt(idx);
 		if(idx == letterIndex) // Draw a circle around the special index
 		{
