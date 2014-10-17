@@ -6,7 +6,8 @@
 $contents = file(__DIR__."/dict");
 $special_contents = file(__DIR__."/special_dict");
 $special_line = trim($special_contents[rand(0,count($special_contents)-1)]);
-$special_line_array = str_split($special_line);
+$special_line_scrambled = str_shuffle($special_line);
+$special_line_array = str_split($special_line_scrambled);
 
 echo($special_line . ",");
 
