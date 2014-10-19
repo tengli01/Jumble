@@ -127,6 +127,8 @@ function requestNewWord()
 		currentAnswer = specialWord;
 		
 		document.getElementById("real_word").innerHTML = currentAnswer;
+		var canvas = document.getElementById("scrambled_word_canvas");
+		drawWord("Final Word",canvas,-1);
 		level = "Final Word";
 		setScore();
 	}

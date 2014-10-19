@@ -19,7 +19,7 @@
 			<div id="data_div"></div>
 			<div id="word_div">
 				<div id='answer_div'></div>
-				Your word is: <div id='real_word'></div><br>
+				<div id='real_word'></div><br>
 				<canvas id='scrambled_word_canvas'></canvas><br>
 				<canvas id='final_word_canvas'></canvas><br>
 			</div>
