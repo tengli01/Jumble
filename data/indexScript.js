@@ -45,6 +45,8 @@ function controlClicked()
 		num_guesses = 0;
 		score = 0;
 		document.getElementById("submitGuess").disabled = false;
+		var canvas = document.getElementById("final_word_canvas");
+		drawWord("",canvas,-1);
 		setScore();
 		requestNewWordList();
 	}	
