@@ -1,18 +1,18 @@
-var level = 1;
-var num_guesses = 0;
-var score = 0;
-var answerIndex = 0;
-var answers = new Array();
-var letters = new Array();
-var currentAnswer;
-var currentLetter;
-var specialWord;
-var finalWord;
-var numDaysToSave = 7;
+var level = 1; // Stores what level the player is on
+var num_guesses = 0; // Stores how many guesses the player has made
+var score = 0; // Stores the current score
+var answerIndex = 0; // Stores an index into the answers and letters array
+var answers = new Array(); // Array of words for the player to guess
+var letters = new Array(); // Array of indices into each word, which specify the letter of the special word
+var currentAnswer; // Stores the correct answer that the player is currently trying to guess
+var currentLetter; // Stores the correct letter index of the word the player is guessing
+var specialWord; // Stores the final word the player is trying to guess
+var finalWord; // Stores the scrambled version of the special word that the player builds up letter by letter
+var numDaysToSave = 7; // Stores how long the cookie that saves the player's progress lasts
 
 //This function is called when the user clicks "Start"/"Reset"
-//On start: displays the game div and requests a new word
-//On reset: clears points, level, num_guesses, and requests a new word
+//On start: displays the game div and requests a new word list from the server
+//On reset: clears points, level, num_guesses, and requests a new word list from the server
 function controlClicked()
 {
 	var e = document.getElementById("game_div");
@@ -76,6 +76,8 @@ function updateGameCookies(_numDaysToSave)
 
 // This function splits the comma-separated list of words from the server into an array of words, with the special word first 
 // and every other word prefixed by the index of the letter that is in the special word
+// EX: bat,0,ball,2,drat,1,at
+//	Special word is 'bat', the first word to guess is 'ball' and the index of the letter making up part of the special word is '0'
 function reloadAnswer()
 {
 	var answer_div = document.getElementById("data_div");
@@ -93,7 +95,8 @@ function reloadAnswer()
 	}
 }
 
-// This function performs an AJAX request at the server to get a new word
+// This function performs an AJAX request at the server to get a new word list
+// Should only be called when the player presses "Start" with no cookies or "Reset"
 function requestNewWordList()
 {
 	var new_word_div = document.getElementById("data_div");
@@ -137,13 +140,12 @@ function requestNewWord()
 }
 
 // This function handles determining if a player's guess (passed in through the 'text' param) is correct
-// It hashes the param and compares it to 'answer'
 // On correct: increment score, level, num_guesses, set the level_div to new value, request a new word, update cookies
 // On incorrect: increment num_guesses, update level_div, update cookies
 function handleGuess(text)
 {
 	var e = document.getElementById("result_div");
-	if(text==currentAnswer)
+	if(text==currentAnswer) // Player guessed right
 	{
 		if(currentAnswer==specialWord)
 		{
@@ -170,7 +172,7 @@ function handleGuess(text)
 			requestNewWord();
 		}
 	}
-	else
+	else // Player guessed wrong
 	{
 		e.innerHTML = "Incorrect";
 		num_guesses = num_guesses + 1;

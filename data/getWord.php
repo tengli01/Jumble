@@ -1,7 +1,8 @@
 <?php
-// This function gets a new word from the dictionary and sends it to the client
-// The unscrambled answer is stored in 'real_word'
-// The scrambled word is stored in 'scrambled_word'
+// This function gets a new word list from the dictionary and sends it to the client
+// The result is stored in the 'Data_div'
+// EX: bat,0,ball,2,drat,1,at
+//	Special word is 'bat', the first word to guess is 'ball' and the index of the letter making up part of the special word is '0'
 
 $contents = file(__DIR__."/dict");
 $special_contents = file(__DIR__."/special_dict");
