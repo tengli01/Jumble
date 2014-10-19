@@ -27,7 +27,8 @@ function controlClicked()
 		{
 			getGameCookies();
 			setScore();
-			reloadAnswer();
+			reloadAnswer(answerIndex,finalWord);
+			requestNewWord();
 		}
 		else
 		{
@@ -55,36 +56,53 @@ function controlClicked()
 // This function loads game values from a saved session
 function getGameCookies()
 {
-	//score = parseInt(getCookie("Score"));
-	//level = parseInt(getCookie("Level"));
-	//num_guesses = parseInt(getCookie("Num_Guesses"));
-	//answerIndex = parseInt(getCookie("AnswerIndex"));
-	//document.getElementById("scrambled_word").innerHTML = getCookie("Scrambled_Word");
-	//document.getElementById("real_word").innerHTML = getCookie("Real_Word");
+	score = parseInt(getCookie("Score"));
+	level = parseInt(getCookie("Level"));
+	num_guesses = parseInt(getCookie("Num_Guesses"));
+	answerIndex = parseInt(getCookie("Answer_Index"));
+	finalWord = getCookie("Final_Word");
+	var canvas = document.getElementById("final_word_canvas");
+	drawWord(finalWord,canvas,-1);
+	var answer_div = document.getElementById("data_div").innerHTML = getCookie("game_data");
 }
 
 // This function saves off data needed to make game sessions persistant
 function updateGameCookies(_numDaysToSave)
 {
-	//setCookie(_numDaysToSave,"Score",score);
-	//setCookie(_numDaysToSave,"Level",level);
-	//setCookie(_numDaysToSave,"Num_Guesses",num_guesses);
-	//setCookie(_numDaysToSave,"AnswerIndex",answerIndex);
-	//setCookie(_numDaysToSave,"Scrambled_Word",document.getElementById("scrambled_word").innerHTML);
-	//setCookie(_numDaysToSave,"Real_Word",document.getElementById("real_word").innerHTML);
+	setCookie(_numDaysToSave,"Score",score);
+	setCookie(_numDaysToSave,"Level",level);
+	setCookie(_numDaysToSave,"Num_Guesses",num_guesses);
+	setCookie(_numDaysToSave,"Answer_Index",answerIndex);
+	setCookie(_numDaysToSave,"Final_Word",finalWord);
+	
+	//Reconstruct the string that we originally got from the server
+	var game_data = specialWord + ',';
+	for(var i = 0; i < answers.length; i++)
+	{
+		game_data += letters[i];
+		game_data += ',';
+		game_data += answers[i];
+		if(i != answers.length - 1)
+		{
+			game_data += ','; // Only add a trailing comma if we are on the last word in the array
+		}
+	}
+	setCookie(_numDaysToSave,"game_data",game_data);
 }
 
 // This function splits the comma-separated list of words from the server into an array of words, with the special word first 
 // and every other word prefixed by the index of the letter that is in the special word
 // EX: bat,0,ball,2,drat,1,at
 //	Special word is 'bat', the first word to guess is 'ball' and the index of the letter making up part of the special word is '0'
-function reloadAnswer()
+// If we are loading from cookies, than the parameters to this function should be filled in by whatever the anserIndex and finalWord we loaded are
+// Otherwise, they can be '0' and "", respectively.
+function reloadAnswer(_answerIndex, _finalWord)
 {
 	var answer_div = document.getElementById("data_div");
 	answerList = answer_div.innerHTML.split(",");
 	specialWord = answerList[0];
-	answerIndex = 0;
-	finalWord = "";
+	answerIndex = _answerIndex;
+	finalWord = _finalWord;
 	answers = new Array();
 	letters = new Array();
 	
@@ -105,7 +123,7 @@ function requestNewWordList()
 		if(request.readyState == 4)
 		{
 			new_word_div.innerHTML = request.responseText;
-			reloadAnswer();
+			reloadAnswer(0,"");
 			requestNewWord();
 			updateGameCookies(numDaysToSave);
 		}
@@ -156,6 +174,7 @@ function handleGuess(text)
 			setScore();
 			document.getElementById("submitGuess").disabled = true;
 			document.getElementsByClassName("overlay").display = 'block';
+			updateGameCookies(numDaysToSave);
 		}
 		else // The player has guessed one of the levels, get a new word
 		{
@@ -170,6 +189,7 @@ function handleGuess(text)
 			answerIndex = answerIndex + 1;
 			setScore();
 			requestNewWord();
+			updateGameCookies(numDaysToSave);
 		}
 	}
 	else // Player guessed wrong
