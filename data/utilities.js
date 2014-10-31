@@ -60,7 +60,7 @@ function instructionsClicked()
 		 +"Your game is automatically saved, you can close and reopen to return to where you were.");
 }
 
-//This function takes scrambles the title string
+//This function scrambles the title string
 function jumbleContinuously()
 {
 	var e = document.getElementById("game_title").innerHTML;

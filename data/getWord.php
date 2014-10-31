@@ -1,5 +1,6 @@
 <?php
-// This function gets a new word list from the dictionary and sends it to the client
+// This function gets a new word list from the dictionary and sends it to the client. It is a horrible O(n^2) algorithm and needs refactoring
+// One possibility is to make a single pass through the dictionary, collecting words that match any letter in the special word
 // The result is stored in the 'Data_div'
 // EX: bat,0,ball,2,drat,1,at
 //	Special word is 'bat', the first word to guess is 'ball' and the index of the letter making up part of the special word is '0'
@@ -21,7 +22,9 @@ for($count=0; $count<count($special_line_array); $count++)
 	//For each word in the original dictionary
 	for($idx=0; $idx<count($contents); $idx++)
 	{
+		//Check if the letter from the special word appears in the word
 		$position = strpos($contents[$idx],$special_line_array[$count]);
+		
 		//If a particular word contains the letter from the $special_line
 		if($position != False)
 		{
@@ -29,6 +32,8 @@ for($count=0; $count<count($special_line_array); $count++)
 			array_push($possible_letter_locations,$position);
 		}
 	}
+	
+	//Now that we have an array of words, pick a random one
 	$chosen_index = rand(0,count($possible_words)-1);
 	$chosen_word = $possible_words[$chosen_index];
 	$chosen_letter_locations = $possible_letter_locations[$chosen_index];
