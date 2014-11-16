@@ -29,5 +29,8 @@
 			<div id="level_div"></div>
 			<div id="result_div"></div>
 		</div>
+		<div id="celebration_div">
+			<canvas id='celebration_canvas'></canvas>
+		</div>
  	</body>
 </html>

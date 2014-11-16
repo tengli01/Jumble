@@ -29,6 +29,16 @@ canvas
 	opacity:0.50;
 }
 
+#celebration_div
+{
+	display:none;
+}
+
+#celebration_canvas
+{
+	width:100%;
+}
+
 #game_div
 {
 	display:none;

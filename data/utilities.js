@@ -1,3 +1,5 @@
+fireworkLocations = new Array(10);
+
 // Given a cookie name, cookie value, and number of days to store the cookie,
 // create a new cookie in the document with these values
 function setCookie(numDays, cookieName, cookieValue)
@@ -60,6 +62,20 @@ function instructionsClicked()
 		 +"Your game is automatically saved, you can close and reopen to return to where you were.");
 }
 
+// This function creates a new Firework object, with a posX, posY, max Radius (the final size of the firework) and acceleration (how much the firework grows each frame)
+function Firework(canvas)
+{
+	var acceleration = 2 * Math.random();
+	var x = canvas.width * Math.random();
+	var y = canvas.height * Math.random();
+	var radius = 10 * Math.random();
+	
+	this.posX = x;
+	this.posY = y;
+	this.maxRadius = radius;
+	this.accel = acceleration;
+}
+
 //This function scrambles the title string
 function jumbleContinuously()
 {
@@ -70,13 +86,30 @@ function jumbleContinuously()
 // This is a helper function that is called as soon as the page is loaded
 function windowLoaded()
 {
+	var canvas = document.getElementById("celebration_canvas");
+	for(var i = 0; i < fireworkLocations.length; i++)
+	{
+		fireworkLocations[i] = new Firework(canvas);
+	}
+
 	setInterval(jumbleContinuously,1000);
+	setInterval(drawFireworks,250);
 }
 
 // This function sets the "level_div" to the player's current score
 function setScore()
 {
 	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Score = "+score+"<br>Number of Guesses = "+num_guesses;
+}
+
+// This function draws the fireworks that are displayed when the player wins
+function drawFireworks()
+{
+	var canvas = document.getElementById("celebration_canvas");
+	var context = canvas.getContext("2d");
+	clearCanvas(canvas);
+	
+	
 }
 
 // This function clears (redraws as blank) a canvas

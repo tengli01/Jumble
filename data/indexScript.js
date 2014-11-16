@@ -202,3 +202,18 @@ function handleGuess(text)
 		updateGameCookies(numDaysToSave);
 	}
 }
+
+// This function handles drawing the celebration div and is called with "true" if the game is over, "false" otherwise
+function drawCelebration(is_celebrating)
+{
+	var div = document.getElementById("celebration_div");
+	
+	if(is_celebrating)
+	{
+		div.style.display = 'block';
+	}
+	else
+	{
+		div.style.display = 'none';
+	}
+}
