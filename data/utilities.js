@@ -79,15 +79,22 @@ function setScore()
 	document.getElementById("level_div").innerHTML = "Level = "+level+"<br>Score = "+score+"<br>Number of Guesses = "+num_guesses;
 }
 
+// This function clears (redraws as blank) a canvas
+function clearCanvas(canvas)
+{
+	var context = canvas.getContext("2d");
+	context.clearRect(0,0,canvas.width,canvas.height);
+}
+
 //This function draws a word in the specified canvas with boxes around each letter.
 //If letterIndex is specified, then it will draw a circle around that letter
 function drawWord(word,canvas,letterIndex)
 {
 	//Set up canvas
-	var context = canvas.getContext("2d");
-	context.clearRect(0,0,canvas.width,canvas.height);
+	clearCanvas(canvas);
 	var characterOffset = canvas.width / word.length;
-	context.font = "bold 50px Courier New";
+	var context = canvas.getContext("2d");
+	context.font = "bold 75px Courier New";
 	
 	//Handle actual drawing
 	for(var idx = 0; idx < word.length; idx++)
@@ -95,13 +102,13 @@ function drawWord(word,canvas,letterIndex)
 		letter = word.charAt(idx);
 		if(idx == letterIndex) // Draw a circle around the special index
 		{
-			var x = idx * characterOffset+15;
+			var x = idx * characterOffset+20;
 			context.beginPath();
-			context.arc(x,35,25,0,2*Math.PI,false);
+			context.arc(x,canvas.height/2-20,25,0,2*Math.PI);
 			context.lineWidth = 3;
 			context.strokeStyle = '#003300';
 			context.stroke();
 		}
-		context.fillText(letter,idx * characterOffset,50);
+		context.fillText(letter,idx * characterOffset,canvas.height/2);
 	}
 }

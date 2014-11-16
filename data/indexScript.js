@@ -47,6 +47,8 @@ function controlClicked()
 		score = 0;
 		document.getElementById("submitGuess").disabled = false;
 		var canvas = document.getElementById("final_word_canvas");
+		var e = document.getElementById("result_div");
+		e.innerHTML = "";
 		drawWord("",canvas,-1);
 		setScore();
 		requestNewWordList();
@@ -151,7 +153,7 @@ function requestNewWord()
 		
 		document.getElementById("real_word").innerHTML = currentAnswer;
 		var canvas = document.getElementById("scrambled_word_canvas");
-		drawWord("Final Word",canvas,-1);
+		clearCanvas(canvas);
 		level = "Final Word";
 		setScore();
 	}
