@@ -1,6 +1,14 @@
+html
+{
+	height:100%;
+	width:100%;
+}
+
 body 
 {
 	background-color: #00cc00;
+	height:100%;
+	width:100%;
 }
 
 h1
@@ -17,26 +25,15 @@ canvas
 	height:75px;
 }
 
-.overlay
-{
-	width:100%;
-	height:100%;
-	display:none;
-	position:absolute;
-	top:0px;
-	left:0px;
-	background-color:black;
-	opacity:0.50;
-}
-
 #celebration_div
 {
-	display:none;
+	display:block;
 }
 
 #celebration_canvas
 {
 	width:100%;
+	height:100%;
 }
 
 #game_div

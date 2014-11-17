@@ -65,7 +65,7 @@ function instructionsClicked()
 // This function creates a new Firework object, with a posX, posY, max Radius (the final size of the firework) and acceleration (how much the firework grows each frame)
 function Firework(canvas)
 {
-	var acceleration = 2 * Math.random();
+	var acceleration = Math.random();
 	var x = canvas.width * Math.random();
 	var y = canvas.height * Math.random();
 	var radius = 10 * Math.random();
@@ -74,6 +74,20 @@ function Firework(canvas)
 	this.posY = y;
 	this.maxRadius = radius;
 	this.accel = acceleration;
+	this.color = RandomColor();
+	this.currRadius = 0;
+}
+
+// This function returns a random Color
+function RandomColor() 
+{
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) 
+	{
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 //This function scrambles the title string
@@ -93,7 +107,7 @@ function windowLoaded()
 	}
 
 	setInterval(jumbleContinuously,1000);
-	setInterval(drawFireworks,250);
+	setInterval(drawFireworks,1000);
 }
 
 // This function sets the "level_div" to the player's current score
@@ -109,7 +123,21 @@ function drawFireworks()
 	var context = canvas.getContext("2d");
 	clearCanvas(canvas);
 	
-	
+	for(var i = 0; i < fireworkLocations.length; i++)
+	{
+		var f = fireworkLocations[i];
+		context.beginPath();
+		context.arc(f.PosX,f.posY,f.currRadius,0,2*Math.PI);
+		context.lineWidth = 3;
+		context.strokeStyle = f.Color;
+		context.stroke();
+		
+		f.currRadius += f.accel;
+		if(f.currRadius >= f.maxRadius)
+		{
+			fireworkLocations[i] = new Firework(canvas);
+		}
+	}
 }
 
 // This function clears (redraws as blank) a canvas
