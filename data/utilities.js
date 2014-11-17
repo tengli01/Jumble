@@ -70,8 +70,8 @@ function Firework(canvas)
 	var y = canvas.height * Math.random();
 	var radius = 10 * Math.random();
 	
-	this.posX = x;
-	this.posY = y;
+	this.posX = Math.floor(x);
+	this.posY = Math.floor(y);
 	this.maxRadius = radius;
 	this.accel = acceleration;
 	this.color = RandomColor();
