@@ -68,7 +68,7 @@ function Firework(canvas)
 	var acceleration = Math.random();
 	var x = canvas.width * Math.random();
 	var y = canvas.height * Math.random();
-	var radius = 10 * Math.random();
+	var radius = 100 * Math.random();
 	
 	this.posX = Math.floor(x);
 	this.posY = Math.floor(y);
@@ -121,6 +121,9 @@ function drawFireworks()
 {
 	var canvas = document.getElementById("celebration_canvas");
 	var context = canvas.getContext("2d");
+	
+	canvas.style.width = canvas.width;
+	canvas.style.height = canvas.height;
 	clearCanvas(canvas);
 	
 	for(var i = 0; i < fireworkLocations.length; i++)
@@ -128,7 +131,7 @@ function drawFireworks()
 		var f = fireworkLocations[i];
 		context.beginPath();
 		context.arc(f.PosX,f.posY,f.currRadius,0,2*Math.PI);
-		context.lineWidth = 3;
+		context.lineWidth = 10;
 		context.strokeStyle = f.Color;
 		context.stroke();
 		
